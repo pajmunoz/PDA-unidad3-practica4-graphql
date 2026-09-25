@@ -1,0 +1,40 @@
+"""
+Contrato GraphQL del sistema de clientes y facturación.
+Período lectivo: septiembre de 2026.
+"""
+type Cliente {
+  "Identificador único del cliente."
+  id: ID!
+
+  "Razón social o nombre comercial."
+  nombre: String!
+
+  "Sector económico al que pertenece."
+  sector: String!
+
+  "Relación jerárquica uno-a-muchos con las facturas del cliente."
+  facturas: [Factura!]!
+}
+
+type Factura {
+  "Identificador único de la factura."
+  id: ID!
+
+  "Valor monetario facturado."
+  monto: Float!
+
+  "Estado actual de la factura."
+  estado: EstadoFactura!
+}
+
+enum EstadoFactura {
+  PAGADA
+  PENDIENTE
+  ANULADA
+}
+
+"Punto de entrada de solo lectura del API."
+type Query {
+  "Obtiene el catálogo de clientes y permite navegar hacia sus facturas."
+  clientes: [Cliente!]!
+}
